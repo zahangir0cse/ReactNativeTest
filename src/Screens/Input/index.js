@@ -1,42 +1,13 @@
 import React, {Component} from 'react';
 import {View, TextInput,StyleSheet, Text, Button, TouchableOpacity,Image} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
+import style from "../../Utility/Style/style";
 
 const options={
     title: "Choose Options",
     takePhotoButtonTitle:"Take Photo form Camera",
     chooseFromLibraryButtonTitle:"Upload form Gallery",
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    inputBox: {
-        width: 300,
-        backgroundColor: '#eeeeee',
-        borderRadius: 25,
-        paddingHorizontal: 16,
-        fontSize: 16,
-        color: '#002f6c',
-        marginVertical: 10
-    },
-    button: {
-        width: 300,
-        backgroundColor: '#4f83cc',
-        borderRadius: 25,
-        marginVertical: 10,
-        paddingVertical: 12
-    },
-    buttonText: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#ffffff',
-        textAlign: 'center'
-    }
-});
 
 class InputScreen extends Component {
     pickImage=()=>{
@@ -118,13 +89,10 @@ class InputScreen extends Component {
         const {formData} = this.state;
         return (
             <View>
-                {this.state.avatarSource? (
-                    <Image source={this.state.avatarSource} style={{height:150}}/>
-                ): null}
                 {Object.keys(formData).map(el => (
                     <TextInput
                         key={el}
-                        style={styles.inputBox}
+                        style={style.inputBox}
                         onChangeText={val => this.onInputChange(el, val)}
                         underlineColorAndroid='rgba(0,0,0,0)'
                         placeholder={formData[el].placeholder}
@@ -136,9 +104,11 @@ class InputScreen extends Component {
                         touched={formData[el].touch}
                     />
                 ))}
-
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText} onPress={this.pickImage}>Submit</Text>
+                {this.state.avatarSource? (
+                    <Image source={this.state.avatarSource} style={{height:150}}/>
+                ): null}
+                <TouchableOpacity style={style.button}>
+                    <Text style={style.buttonText} onPress={this.pickImage}>Upload Image</Text>
                 </TouchableOpacity>
             </View>
         );
